@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Text metrics</string>
+    <string name="eyebrow">MIPT · PRACTICAL ASSIGNMENT 2</string>
+    <string name="title">What is in your text?</string>
+    <string name="subtitle">Sentences, words, characters and numbers in one place.</string>
+    <string name="input_label">Your text</string>
+    <string name="input_hint">Type or paste your text…</string>
+    <string name="input_count">%1$d / %2$d</string>
+    <string name="generate">Generate example</string>
+    <string name="calculate">Calculate</string>
+    <string name="empty_error">Enter some text. Spaces alone are not enough.</string>
+    <string name="result_title">Calculation results</string>
+    <string name="sentences">Sentences</string>
+    <string name="words">Words</string>
+    <string name="characters">Characters</string>
+    <string name="numbers">Numbers</string>
+    <string name="rules_hint">Characters include spaces and punctuation. Numbers do not count as words.</string>
+    <string name="history_title">Session history</string>
+    <string name="clear_history">Clear</string>
+    <string name="history_empty">Run your first calculation to see the result here.</string>
+    <string name="history_note">Last 30 entries. Tap an entry to restore its text.</string>
+    <string name="history_metrics">Sentences: %1$d · Words: %2$d\nCharacters: %3$d · Numbers: %4$d</string>
+    <string name="history_load">Restore text: %1$s</string>
+    <string name="history_cleared">History cleared</string>
+    <string name="history_row">%1$s\n\n%2$s</string>
+    <string name="history_accessibility">%1$s. %2$s</string>
+    <string name="metric_accessibility">%1$s: %2$s</string>
+    <string-array name="sample_sentences">
+        <item>Good morning</item>
+        <item>The journey started on September 1. We arrived safely.</item>
+        <item>I read 12 pages today. Tomorrow I will read 20!</item>
+        <item>Coffee costs 3.50 euros. Would you like 2 cups?</item>
+        <item>Are you ready? Yes! Let us start assignment 2.</item>
+        <item>An oak grows by the river. There are 5 friends here.</item>
+    </string-array>
+</resources>

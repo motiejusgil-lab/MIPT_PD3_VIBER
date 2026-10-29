@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/page" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fillViewport="true" android:clipToPadding="false">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="24dp">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/eyebrow" android:textColor="@color/accent" android:textSize="12sp" android:textStyle="bold" android:letterSpacing="0.1" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:text="@string/title" android:textColor="@color/ink" android:textSize="30sp" android:textStyle="bold" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" android:text="@string/subtitle" android:textColor="@color/muted" android:textSize="16sp" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="24dp" android:orientation="vertical" android:padding="16dp" android:background="@drawable/bg_card">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/input_label" android:textColor="@color/ink" android:textSize="16sp" android:textStyle="bold" />
+            <EditText android:id="@+id/input" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:minHeight="144dp" android:gravity="top|start" android:inputType="textMultiLine|textCapSentences"
+                android:hint="@string/input_hint" android:textSize="17sp" android:textColor="@color/ink"
+                android:saveEnabled="false" android:importantForAutofill="no" />
+            <TextView android:id="@+id/input_count" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:gravity="end" android:textColor="@color/muted" android:textSize="12sp" />
+            <Button android:id="@+id/generate" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:minHeight="48dp" android:text="@string/generate" android:textAllCaps="false" android:textColor="@color/accent" style="?android:attr/borderlessButtonStyle" />
+            <Button android:id="@+id/calculate" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:minHeight="52dp" android:text="@string/calculate" android:textAllCaps="false"
+                android:backgroundTint="@color/accent" android:textColor="@color/surface" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/results" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="24dp" android:orientation="vertical" android:visibility="gone">
+            <TextView android:id="@+id/results_heading" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/result_title" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/ink" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp">
+                <LinearLayout style="@style/MetricCard" android:layout_marginEnd="6dp">
+                    <TextView android:id="@+id/sentences" style="@style/MetricValue" />
+                    <TextView style="@style/MetricLabel" android:text="@string/sentences" />
+                </LinearLayout>
+                <LinearLayout style="@style/MetricCard" android:layout_marginStart="6dp">
+                    <TextView android:id="@+id/words" style="@style/MetricValue" />
+                    <TextView style="@style/MetricLabel" android:text="@string/words" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp">
+                <LinearLayout style="@style/MetricCard" android:layout_marginEnd="6dp">
+                    <TextView android:id="@+id/characters" style="@style/MetricValue" />
+                    <TextView style="@style/MetricLabel" android:text="@string/characters" />
+                </LinearLayout>
+                <LinearLayout style="@style/MetricCard" android:layout_marginStart="6dp">
+                    <TextView android:id="@+id/numbers" style="@style/MetricValue" />
+                    <TextView style="@style/MetricLabel" android:text="@string/numbers" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp"
+            android:text="@string/rules_hint" android:textSize="12sp" android:textColor="@color/muted" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:gravity="center_vertical">
+            <TextView android:id="@+id/history_heading" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                android:text="@string/history_title" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/ink" />
+            <Button android:id="@+id/clear_history" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:minHeight="48dp" android:text="@string/clear_history" android:textAllCaps="false" android:textColor="@color/accent" style="?android:attr/borderlessButtonStyle" />
+        </LinearLayout>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/history_note" android:textColor="@color/muted" android:textSize="12sp" />
+        <TextView android:id="@+id/history_empty" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:padding="20dp" android:background="@drawable/bg_card"
+            android:text="@string/history_empty" android:textSize="15sp" android:textColor="@color/muted" />
+        <LinearLayout android:id="@+id/history_list" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+    </LinearLayout>
+</ScrollView>

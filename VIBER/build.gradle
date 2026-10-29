@@ -1,0 +1,70 @@
+plugins {
+    id 'com.android.application' version '8.9.2' apply false
+    id 'jacoco'
+}
+
+jacoco { toolVersion = '0.8.14' }
+
+def applicationClasses = files(
+        fileTree('app/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes') {
+            include '**/*.class'
+            exclude '**/R.class', '**/R$*.class', '**/BuildConfig.class'
+        },
+        fileTree('core/build/classes/java/main') { include '**/*.class' })
+def unitExecutionData = files(
+        'app/build/outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec',
+        'core/build/jacoco/test.exec')
+
+// A missing output directory must not turn a coverage check into an empty success.
+def validateCoverageScope = { scope ->
+    def coveredFiles = scope.files.collect { it.canonicalFile }.toSet()
+    if (coveredFiles.isEmpty()) {
+        throw new GradleException('Coverage contains no production classes.')
+    }
+    ['app', 'core'].each { module ->
+        def sourceRoot = file("${module}/src/main/java").toPath()
+        def classRoot = module == 'app'
+                ? file('app/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes')
+                : file('core/build/classes/java/main')
+        fileTree(sourceRoot) { include '**/*.java' }.each { source ->
+            def relativeClass = sourceRoot.relativize(source.toPath()).toString().replaceAll(/\.java$/, '.class')
+            def expectedClass = new File(classRoot, relativeClass).canonicalFile
+            if (!coveredFiles.contains(expectedClass)) {
+                throw new GradleException("Coverage is missing production class for ${source}.")
+            }
+        }
+    }
+}
+
+tasks.register('unitTestCoverage', JacocoReport) {
+    group = 'verification'
+    description = 'Runs local tests and reports every handwritten production class.'
+    dependsOn ':core:test', ':app:testDebugUnitTest'
+    executionData unitExecutionData
+    classDirectories.setFrom(applicationClasses)
+    sourceDirectories.setFrom(files('app/src/main/java', 'core/src/main/java'))
+    doFirst { validateCoverageScope(classDirectories) }
+    reports {
+        html.required = true
+        xml.required = true
+        csv.required = true
+    }
+}
+
+tasks.register('verifyUnitTestCoverage', JacocoCoverageVerification) {
+    group = 'verification'
+    description = 'Requires 100 percent class and method coverage across app and core.'
+    dependsOn 'unitTestCoverage'
+    executionData unitExecutionData
+    classDirectories.setFrom(applicationClasses)
+    sourceDirectories.setFrom(files('app/src/main/java', 'core/src/main/java'))
+    doFirst { validateCoverageScope(classDirectories) }
+    violationRules {
+        rule {
+            limit { counter = 'CLASS'; value = 'MISSEDCOUNT'; maximum = 0 }
+            limit { counter = 'METHOD'; value = 'MISSEDCOUNT'; maximum = 0 }
+            limit { counter = 'CLASS'; value = 'TOTALCOUNT'; minimum = 1 }
+            limit { counter = 'METHOD'; value = 'TOTALCOUNT'; minimum = 1 }
+        }
+    }
+}
